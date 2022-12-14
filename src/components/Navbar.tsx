@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import SearcBar from './SearcBar'
 
 interface NavProps {
@@ -13,7 +13,12 @@ const navItems: Array<NavProps> = [
 ]
 
 export default function Navbar({children}: {children: ReactNode}) {
-    // const handleToggle = {open, isOpened}
+    const [open, setOpen] = useState(false)
+
+    const handleClick = () => {
+        setOpen(!open)
+    }
+
   return (
     <div>
         <div>
@@ -23,7 +28,7 @@ export default function Navbar({children}: {children: ReactNode}) {
                     {/* <img className='font-semibold' src='#' alt='Shawarma Haiven'/> */}
                 </div>
 
-                <ul className='md:flex hidden'>
+                <ul className={`${open ? 'my-6 mb-1 mx-16' :  'hidden' } md:flex md:flex-wrap'`}>
                     {navItems.map((item) => (
                         <li className='md:mx-6 mt-2 text-sm md:font-semibold active:bg-white active:rounded-full active:px-2 active:p-1 active:text-orange-400 hover:bg-white hover:rounded-full hover:px-2 hover:p-1 hover:text-orange-400 mb-2'>
                             <a href={item.route}>{item.name}</a>
@@ -35,6 +40,26 @@ export default function Navbar({children}: {children: ReactNode}) {
 
                 <div className='bg-white shadow-inner shadow-gray-700 rounded-md h-6 w-6 md:mt-1 mx-2 md:mx-10'>
                     <img className='h-4 m-1' src='/user.png'/>
+                </div>
+
+                <div className="md:hidden">
+                    <button
+                        onClick={handleClick}
+                        type="button"
+                        className="m-2 my-2 md:hidden"
+                    >
+                        <svg
+                        className="h-6 w-6 text-dawnorange"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        >
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
             </nav>
         </div>
